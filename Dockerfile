@@ -37,5 +37,6 @@ CMD php artisan serve --host=0.0.0.0 --port=8000
 
 FROM prod as dev
 COPY --from=dev-builder /app .
+RUN apt update && apt install -y sqlite3
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 CMD php artisan serve --host=0.0.0.0 --port=8000
