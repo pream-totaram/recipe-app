@@ -11,7 +11,7 @@ class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testUserCanRegisterWithValidCredentials() {
+    public function testUserCanRegisterWithValidCredentials() : void {
         $userData = [
             'name' => 'John Doe',
             'email' => 'john@example.com',
@@ -47,7 +47,7 @@ class AuthTest extends TestCase
         ]);
     }
 
-    public function testUserCannotRegisterWithInvalidData()
+    public function testUserCannotRegisterWithInvalidData() : void
     {
         $userData = [
             'name' => '',
@@ -70,8 +70,10 @@ class AuthTest extends TestCase
 
         $this->assertDatabaseCount('users', 0);
     }
-
-     public function testUserCannotRegisterWithExistingEmail()
+    /**
+     * @return void
+     */
+    public function testUserCannotRegisterWithExistingEmail(): void
     {
         // Create a user first
         User::factory()->create([
@@ -97,8 +99,10 @@ class AuthTest extends TestCase
 
         $this->assertDatabaseCount('users', 1);
     }
-
-    public function testUserCanLoginWithValidCredentials()
+    /**
+     * @return void
+     */
+    public function testUserCanLoginWithValidCredentials(): void
     {
         $user = User::factory()->create([
             'email' => 'john@example.com',
@@ -139,8 +143,10 @@ class AuthTest extends TestCase
             'name' => 'auth-token'
         ]);
     }
-
-    public function testUserCannotLoginWithInvalidEmailFormat()
+    /**
+     * @return void
+     */
+    public function testUserCannotLoginWithInvalidEmailFormat(): void
     {
         $loginData = [
             'email' => 'invalid-email',
@@ -157,8 +163,10 @@ class AuthTest extends TestCase
                 ]
             ]);
     }
-
-    public function testUserCannotLoginWithMissingPassword()
+    /**
+     * @return void
+     */
+    public function testUserCannotLoginWithMissingPassword(): void
     {
         $loginData = [
             'email' => 'john@example.com',
@@ -174,8 +182,10 @@ class AuthTest extends TestCase
                 ]
             ]);
     }
-
-    public function testUserCanLogout()
+    /**
+     * @return void
+     */
+    public function testUserCanLogout(): void
     {
         $user = User::factory()->create([
             'email' => 'john@example.com',
